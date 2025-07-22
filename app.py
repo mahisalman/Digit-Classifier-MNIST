@@ -6,7 +6,8 @@ import base64
 import io
 
 app = Flask(__name__)
-model = load_model("mnist_digit_classifier.h5")
+model = load_model("mnist_digit_classifier.keras")
+
 
 @app.route('/')
 def index():

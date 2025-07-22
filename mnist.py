@@ -1,13 +1,20 @@
 import numpy as np
+import pandas as pd
+import seaborn as sns
 import matplotlib.pyplot as plt
+
+import tensorflow as tf
 from tensorflow.keras.datasets import mnist
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Flatten, Dropout, BatchNormalization
 from tensorflow.keras.utils import to_categorical
+from tensorflow.keras.models import Sequential, load_model
+from tensorflow.keras.layers import Dense, BatchNormalization, Flatten, Dropout, Input
 from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.models import load_model
+from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
+
+# GUI-related
 import tkinter as tk
 from PIL import Image, ImageDraw, ImageOps
+
 
 # ---------------------
 # 1. Load and Preprocess Dataset
@@ -26,20 +33,24 @@ y_test_cat = to_categorical(y_test, 10)
 # 2. Build the Model
 # ---------------------
 model = Sequential([
-    Flatten(input_shape=(28, 28)),
+    Input(shape=(28, 28)),           # Accept 2D shape
+    Flatten(),                       # Flatten to 784
+    Dense(512, activation='relu'),
+    BatchNormalization(),
+    Dropout(0.3),
+
     Dense(256, activation='relu'),
     BatchNormalization(),
     Dropout(0.3),
 
     Dense(128, activation='relu'),
-    BatchNormalization(),
-    Dropout(0.3),
-
-    Dense(64, activation='relu'),
-    BatchNormalization(),
+    Dropout(0.2),
 
     Dense(10, activation='softmax')
 ])
+
+
+model.summary()
 
 model.compile(optimizer=Adam(),
               loss='categorical_crossentropy',
@@ -48,29 +59,63 @@ model.compile(optimizer=Adam(),
 # ---------------------
 # 3. Train the Model
 # ---------------------
+early_stop = EarlyStopping(
+    monitor='val_loss',
+    patience=5,
+    restore_best_weights=True
+)
+
+model_checkpoint = ModelCheckpoint(
+    filepath='best_model.keras',
+    monitor='val_loss',
+    save_best_only=True,
+    verbose=1
+)
+
 history = model.fit(
-    x_train, y_train_cat,
-    epochs=15,
+    x_train, y_train_cat,  # ✅ one-hot encoded labels
+    epochs=50,
     batch_size=128,
     validation_split=0.2,
+    callbacks=[early_stop, model_checkpoint],
     verbose=2
 )
+
+
+best_model = load_model('best_model.keras')
+
+best_epoch = np.argmin(history.history['val_loss']) + 1
+print(f"Best Epoch -> ", best_epoch)
 
 # ---------------------
 # 4. Plot Accuracy & Loss
 # ---------------------
 plt.figure(figsize=(12, 5))
-plt.subplot(1, 2, 1)
-plt.plot(history.history['accuracy'], label='Train Acc')
-plt.plot(history.history['val_accuracy'], label='Val Acc')
-plt.title("Accuracy over Epochs")
-plt.legend()
 
-plt.subplot(1, 2, 2)
-plt.plot(history.history['loss'], label='Train Loss')
-plt.plot(history.history['val_loss'], label='Val Loss')
-plt.title("Loss over Epochs")
+# --- Accuracy Plot ---
+plt.subplot(1, 2, 1)
+plt.plot(history.history['accuracy'], label='Train Accuracy', marker='o')
+plt.plot(history.history['val_accuracy'], label='Validation Accuracy', marker='o')
+plt.title('Model Accuracy Over Epochs')
+plt.xlabel('Epoch')
+plt.ylabel('Accuracy')
+plt.xticks(range(len(history.history['accuracy'])))
 plt.legend()
+plt.grid(True)
+
+# --- Loss Plot ---
+plt.subplot(1, 2, 2)
+plt.plot(history.history['loss'], label='Train Loss', marker='o')
+plt.plot(history.history['val_loss'], label='Validation Loss', marker='o')
+plt.title('Model Loss Over Epochs')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.xticks(range(len(history.history['loss'])))
+plt.legend()
+plt.grid(True)
+
+
+# Show both plots
 plt.tight_layout()
 plt.show()
 
@@ -150,4 +195,5 @@ if __name__ == '__main__':
 
 
 
-model.save("mnist_digit_classifier.h5")
+model.save("mnist_digit_classifier.keras")
+
