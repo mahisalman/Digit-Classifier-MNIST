@@ -2,7 +2,7 @@
 
 This project is a **handwritten digit recognizer** powered by a trained **TensorFlow** model on the **MNIST dataset**. It features a modern HTML5 canvas frontend and a **Flask backend** to serve predictions from a `.h5` model.
 
-![Screenshot](https://raw.githubusercontent.com/mahisalman/Digit-Classifier-MNIST/main/demo-screenshot.png)
+![Screenshot](https://github.com/mahisalman/Digit-Classifier-MNIST/blob/main/Digit-Classifier-MNIST.png)
 
 ---
 
