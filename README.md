@@ -15,10 +15,15 @@ This project is a **handwritten digit recognizer** powered by a trained **Tensor
 ## 📦 Project Structure
 
 Digit-Classifier-MNIST/
+
 ├── app.py # Flask app
+
 ├── mnist_digit_classifier.h5 # Trained model (28x28 MNIST digits)
+
 ├── requirements.txt # Python dependencies
+
 └── templates/
+
 └── index.html # HTML5 + JS frontend
 
 
