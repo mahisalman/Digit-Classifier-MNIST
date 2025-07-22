@@ -42,13 +42,15 @@ Digit-Classifier-MNIST/
 git clone https://github.com/mahisalman/Digit-Classifier-MNIST.git
 cd Digit-Classifier-MNIST
 
-📷 Screenshot
+
+
+## 📷 Screenshot
 <img src="https://raw.githubusercontent.com/mahisalman/Digit-Classifier-MNIST/main/demo-screenshot.png" width="480"/>
 🙋‍♂️ Author
 
-👨‍💻 Mahi Salman
+## 👨‍💻 Mahi Salman
 🔗 GitHub Profile
 📃 License
 
-This project is licensed under the MIT License.
+## This project is licensed under the MIT License.
 Feel free to use, modify, and distribute.
