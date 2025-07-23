@@ -15,17 +15,21 @@ This project includes an interactive **HTML5 Canvas UI** and a **Flask API backe
 
 ## 📦 Project Structure
 
-Digit-Classifier-MNIST/
-
-├── app.py # Flask app
-
-├── mnist_digit_classifier.h5 # Trained model (28x28 MNIST digits)
-
-├── requirements.txt # Python dependencies
-
-└── templates/
-
-└── index.html # HTML5 + JS frontend
+digitclassifier/
+├── static/
+│   ├── script.js
+│   └── style.css
+├── templates/
+│   ├── index.html
+│   └── train.html
+├── model/
+│   └── mnist_model.h5
+├── notebooks/
+│   └── training.ipynb
+├── app.py
+├── model_builder.py
+├── README.md
+└── requirements.txt
 
 
 ---
