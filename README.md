@@ -16,16 +16,27 @@ This project includes an interactive **HTML5 Canvas UI** and a **Flask API backe
 📁 Project Folder Structure
 
 Digit-Classifier-MNIST/
+
 ├── templates/
+
 │   └── index.html             # HTML5 canvas frontend (in templates folder)
+
 │
+
 ├── Digit-Classifier-MNIST.png # Screenshot or demo image
+
 ├── README.md                  # Project documentation
+
 ├── app.py                     # Flask backend (web server)
+
 ├── mnist.py                   # Model training script
+
 ├── best_model.keras           # Best performing model (from training)
+
 ├── mnist_digit_classifier.h5  # Older HDF5 model (legacy format)
+
 ├── mnist_digit_classifier.keras # Final model for GUI & web use
+
 ├── requirements.txt           # Python dependencies
 
 
