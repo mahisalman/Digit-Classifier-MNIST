@@ -13,7 +13,7 @@ This project includes an interactive **HTML5 Canvas UI** and a **Flask API backe
 
 ---
 
-## 📦 Project Structure
+📁 Project Folder Structure
 
 Digit-Classifier-MNIST/
 ├── templates/
